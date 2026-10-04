@@ -8,64 +8,38 @@ everything runs on one machine. The architecture is designed so components can b
 onto dedicated infrastructure as the system scales.
 
 ## Component Diagram
-┌─────────────────────────────────────────────────────────┐
-│ Cameras │
-│ Annke I81HS (one or more) │
-│ RTSP stream over local network │
-└────────────────────────┬────────────────────────────────┘
-│ rtsp://
-▼
-┌─────────────────────────────────────────────────────────┐
-│ Flask Server │
-│ │
-│ ┌─────────────────────────────────────────────────┐ │
-│ │ CameraStream (per camera) │ │
-│ │ │ │
-│ │ Capture Thread Inference Thread │ │
-│ │ ───────────── ──────────────── │ │
-│ │ Pull RTSP frames → Run YOLOv8 on GPU │ │
-│ │ Update frame buffer Annotate detections │ │
-│ │ Trigger alerts │ │
-│ └─────────────────────────────────────────────────┘ │
-│ │ │
-│ ┌──────────┴──────────┐ │
-│ ▼ ▼ │
-│ Alert Pipeline MJPEG Stream │
-│ ───────────── ──────────── │
-│ Write to SQLite Serve to browser │
-│ Save snapshot via /stream/<id> │
-│ Check combined alerts │
-│ │ │
-│ ▼ │
-│ SQLite DB │
-│ ────────── │
-│ alerts │
-│ cameras │
-│ combined_alerts │
-│ │
-│ ┌──────────────────────────────────────────────────┐ │
-│ │ Web Dashboard │ │
-│ │ │ │
-│ │ / Alert dashboard, camera tabs │ │
-│ │ /live Live MJPEG stream viewer │ │
-│ │ /map Leaflet geolocation map │ │
-│ │ /settings Camera config and RTSP setup │ │
-│ │ /login Session authentication │ │
-│ │ │ │
-│ │ /api/alerts Alert data (JSON) │ │
-│ │ /api/cameras Camera registry (JSON) │ │
-│ │ /api/combined_alerts Priority events (JSON) │ │
-│ │ /api/camera_status Map status (JSON) │ │
-│ │ /stream/<id> MJPEG video feed │ │
-│ └──────────────────────────────────────────────────┘ │
-└─────────────────────────────────────────────────────────┘
+
+```
+Cameras (Annke I81HS)
+        │ RTSP
+        ▼
+Flask Server
+├── CameraStream (one per camera)
+│   ├── Capture Thread — pulls RTSP frames, updates frame buffer
+│   └── Inference Thread — runs YOLOv8 on GPU, triggers alerts
 │
-▼
-Browser Client
-──────────────
-Dashboard UI
-Live view
-Map view
+├── Alert Pipeline
+│   ├── Write alert to SQLite
+│   ├── Save snapshot to disk
+│   └── Check combined alert conditions
+│
+├── MJPEG Stream — serves annotated frames to browser
+│
+├── SQLite Database
+│   ├── alerts
+│   ├── cameras
+│   └── combined_alerts
+│
+└── Web Dashboard
+    ├── /           — Alert dashboard
+    ├── /live       — Live stream viewer
+    ├── /map        — Geolocation map
+    ├── /settings   — Camera configuration
+    └── /api/*      — JSON endpoints
+        │
+        ▼
+   Browser Client
+```
 
 ## Key Design Decisions
 
