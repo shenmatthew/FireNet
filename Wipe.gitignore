@@ -1,0 +1,24 @@
+# Database
+*.db
+
+# Snapshots
+snapshots/
+
+# Model runs and weights
+runs/
+*.pt
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# VS Code
+.vscode/
+
+# Environment variables
+.env
+
+# Windows
+Thumbs.db
+desktop.ini
