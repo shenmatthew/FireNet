@@ -15,13 +15,13 @@ app = Flask(__name__)
 
 # ─── Configuration ────────────────────────────────────────────────────────────
 
-app.secret_key = 'changethis_to_something_random'
-USERNAME = "admin"
-PASSWORD = "85eC232@45"
+app.secret_key = 'CHANGE_THIS_TO_SOMETHING_RANDOM'
+USERNAME = "YOUR_USERNAME"
+PASSWORD = "YOUR_PASSWORD"
 
-SNAPSHOT_DIR = "C:/Users/shenp/OneDrive/Desktop/Python Scripts/Firenet/snapshots"
-DB_PATH = "C:/Users/shenp/OneDrive/Desktop/Python Scripts/Firenet/alerts.db"
-WEIGHTS = "C:/Users/shenp/OneDrive/Desktop/Python Scripts/Firenet/fire_detection_v1-3/weights/best.pt"
+SNAPSHOT_DIR = "YOUR_SNAPSHOT_DIRECTORY"
+DB_PATH = "YOUR_DATABSE_PATH
+WEIGHTS = "YOUR_TRAINING_WEIGHTS"
 
 
 CONFIDENCE_THRESHOLD = 0.5
