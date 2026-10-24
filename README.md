@@ -49,8 +49,8 @@ This is an active prototype. The core pipeline is functional:
 - [x] Camera geolocation and map view
 - [x] Multi-camera support via threaded stream management
 - [x] Combined priority alert system
-- [ ] Dedicated server deployment
-- [ ] Remote access via VPN
+- [x] Dedicated server deployment
+- [x] Remote access via VPN
 - [ ] HTTPS and production authentication
 - [ ] Community notification system
 - [ ] Custom trained fire detection model
