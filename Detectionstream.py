@@ -6,12 +6,12 @@ import base64
 import json
 from datetime import datetime
 
-CAMERA_IP = "10.0.1.160"
-USERNAME = "admin"
-PASSWORD = "85eC232@45"
-WEIGHTS = "C:/Users/shenp/OneDrive/Desktop/Python Scripts/Firenet/fire_detection_v1-3/weights/best.pt"
+CAMERA_IP = "YOURCAMERAIP"
+USERNAME = "YOURUSERNAME"
+PASSWORD = "YOURPASSWORD"
+WEIGHTS = "DIRECTORYFORAIMODELVISIONWEIGHTS"
 CONFIDENCE_THRESHOLD = 0.20
-SERVER_URL = "http://127.0.0.1:5000/alert"
+SERVER_URL = "YOURSERVERURL"
 COOLDOWN_SECONDS = 10
 
 model = YOLO(WEIGHTS)
